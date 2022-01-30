@@ -18,6 +18,7 @@ class FileUploadController extends Controller
             // 'user_img' => 'required | mimes:png'
         ]);
 
+        
         if (request()->hasFile('user_img'))  //if file available
         {
             $destinationPath = 'uploads'; // this path is public/uploads  

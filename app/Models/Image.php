@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Image extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function images()
+    public function imageable()
     {
-        return $this->morphOne('App\Models\Image', 'imageable');
+        return $this->morphTo();
     }
 }
