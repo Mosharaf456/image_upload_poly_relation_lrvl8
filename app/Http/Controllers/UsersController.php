@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Image;
 use App\Models\User;
-use Illuminate\Foundation\Auth\User as AuthUser;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -37,16 +39,20 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        
         //
-        $user= User::create([
-            'name' => request('name') ,
-            'email' => request('email')  
-        ]);
-        $path = request('image_path');
-
-        $user->images()->create([
-            'path' => $path
-        ]);
+       
+            DB::transaction(function(){
+                $user= User::create([
+                    'name' => request('name') ,
+                    'email' => request('email')  
+                ]);
+                $path = request('image_path');
+        
+                $user->images()->create([
+                    'path' => $path
+                ]);
+            }, 3);
 
         return back();
     }
